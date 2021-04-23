@@ -2,13 +2,14 @@ package futuretask;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
 public class FutureTask2 {
     static class Connection {}
     private ConcurrentHashMap<String, FutureTask<Connection>> connectionPool =
         new ConcurrentHashMap<String, FutureTask<Connection>>();
-    public Connection getConnection(Stirng key) {
+    public Connection getConnection(String key) throws InterruptedException, ExecutionException {
         FutureTask<Connection> connectionTask = connectionPool.get(key);
         if (connectionTask != null) {
             return connectionTask.get();
