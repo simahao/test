@@ -20,12 +20,13 @@ public class FutureTaskExecutorService {
 
         ExecutorService executor = Executors.newCachedThreadPool();
         executor.execute(future);
+        // not accept other request
+        executor.shutdown();
 
         try {
             System.out.println("future.get():" + future.get());
         } catch (Exception e) {
             System.out.println("cancel future task");
         }
-        executor.shutdown();
     }
 }

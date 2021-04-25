@@ -28,7 +28,7 @@ public class ClickHouse {
             data.setTotal(Long.valueOf(i + 1));
             data.setMessage(String.valueOf(i) + "hz");
             String value = om.writeValueAsString(data);
-            ProducerRecord<String, String> pr = new ProducerRecord<String,String>("clickhouse", 0, String.valueOf(i), value);
+            ProducerRecord<String, String> pr = new ProducerRecord<String, String>("clickhouse", 0, String.valueOf(i), value);
             Future<RecordMetadata> future = kp.send(pr);
             RecordMetadata rm = future.get();
             System.out.println(rm);

@@ -18,7 +18,8 @@
     <junit-jupiter.version>5.6.0</junit-jupiter.version>
     <assertj.version>3.19.0</assertj.version>
     <mockito.version>3.8.0</mockito.version>
-    <checkstyle.version>3.1.2</checkstyle.version>
+    <checkstyle.version>8.41.1</checkstyle.version>
+    <checkstyleplugin.version>3.1.2</checkstyleplugin.version>
     <mvn-clean.version>3.1.0</mvn-clean.version>
     <mvn-resources.version>3.2.0</mvn-resources.version>
     <mvn-compiler.version>3.8.1</mvn-compiler.version>
@@ -151,6 +152,34 @@
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>${mvn-report.version}</version>
         </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-checkstyle-plugin</artifactId>
+          <version>${checkstyleplugin.version}</version>
+          <dependencies>
+            <dependency>
+              <groupId>com.puppycrawl.tools</groupId>
+              <artifactId>checkstyle</artifactId>
+              <version>${checkstyle.version}</version>
+            </dependency>
+          </dependencies>
+          <executions>
+            <execution>
+              <id>validate</id>
+              <phase>validate</phase>
+              <goals>
+                <goal>check</goal>
+              </goals>
+            </execution>
+          </executions>
+          <configuration>
+              <!-- <suppressionsLocation>config/checkstyle/suppressions.xml</suppressionsLocation> -->
+              <configLocation>checkstyle.xml</configLocation>
+              <includeTestSourceDirectory>true</includeTestSourceDirectory>
+              <logViolationsToConsole>true</logViolationsToConsole>
+              <failOnViolation>true</failOnViolation>
+          </configuration>
+        </plugin>
       </plugins>
     </pluginManagement>
     <plugins>
@@ -173,8 +202,8 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>${checkstyle.version}</version>
-        <configuration>
+        <version>${checkstyleplugin.version}</version>
+        <!-- <configuration>
           <configLocation>checkstyle.xml</configLocation>
           <encoding>UTF-8</encoding>
           <consoleOutput>true</consoleOutput>
@@ -184,12 +213,12 @@
         <executions>
           <execution>
             <id>checkstyle</id>
-            <phase>test</phase>
+            <phase>compile</phase>
             <goals>
               <goal>check</goal>
             </goals>
           </execution>
-        </executions>
+        </executions> -->
       </plugin>
     </plugins>
   </build>
@@ -199,7 +228,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>${checkstyle.version}</version>
+        <version>${checkstyleplugin.version}</version>
         <configuration>
           <configLocation>checkstyle.xml</configLocation>
         </configuration>

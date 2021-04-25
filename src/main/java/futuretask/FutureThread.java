@@ -2,20 +2,6 @@ package futuretask;
 
 import java.util.concurrent.FutureTask;
 
-/**
- * output:
- * future thread_0
- * future thread_1
- * future thread_2
- * future thread_3
- * future thread_4
- * future thread_5
- * future thread_6
- * future thread_7
- * future thread_8
- * future thread_9
- * last outcome:10
- */
 public class FutureThread {
     public static void main(String[] args) {
 
@@ -26,10 +12,12 @@ public class FutureThread {
         thread.start();
 
         try {
+            // get result until task return outcome
+            // main thread is blocked by child thread
             Integer outcome = future.get();
             System.out.println("last outcome:" + outcome);
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }    
+    }
 }

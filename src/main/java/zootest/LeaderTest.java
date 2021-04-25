@@ -1,4 +1,5 @@
 package zootest;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.List;
@@ -17,6 +18,7 @@ public class LeaderTest {
 
     private static final String URL = "172.24.177.38:2181,172.24.177.39:2181,172.24.177.30:2181";
     // private static final String URL = "192.168.128.128:2181";
+
     public static void main(String[] args) throws Exception {
         // all of the useful sample code is in ExampleClient.java
         // String log4jConfPath ="src/main/resources/log4j.properties";
@@ -42,10 +44,10 @@ public class LeaderTest {
             new BufferedReader(new InputStreamReader(System.in)).readLine();
         } finally {
             System.out.println("Shutting down...");
-            for(Client exampleClient : examples) {
+            for (Client exampleClient : examples) {
                 CloseableUtils.closeQuietly(exampleClient);
             }
-            for(CuratorFramework client : clients) {
+            for (CuratorFramework client : clients) {
                 CloseableUtils.closeQuietly(client);
             }
         }

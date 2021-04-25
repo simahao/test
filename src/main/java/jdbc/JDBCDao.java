@@ -10,9 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * JDBCDao
- */
 public class JDBCDao {
 
     /**
@@ -31,11 +28,6 @@ public class JDBCDao {
         }
     }
 
-    /**
-     *
-     * @param sql
-     * @return
-     */
     public static List<Map<String, Object>> select(String sql) {
         List<Map<String, Object>> returnResultToList = null;
         try {
@@ -52,10 +44,9 @@ public class JDBCDao {
     }
 
     /**
-     * 数据返回集合  
-     * @param resultSet  
-     * @return
-     * @throws SQLException  
+     * 
+     * @param resultSet
+     * @return List return one list
      */
     public static List<Map<String, Object>> returnResultToList(ResultSet resultSet) {
         List<Map<String, Object>> values = null;
@@ -91,6 +82,7 @@ public class JDBCDao {
         }
         return values;
     }
+
     /**
      * Says hello to the world.
      * @param args The arguments of the program.

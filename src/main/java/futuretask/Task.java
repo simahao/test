@@ -11,8 +11,9 @@ public class Task implements Callable<Integer> {
             try {
                 System.out.println(Thread.currentThread().getName() + "_" + i);
                 Thread.sleep(500);
-            } catch(InterruptedException e) {
-                System.out.println(e.getMessage());
+            } catch (InterruptedException e) {
+                System.out.printf("interrupt happend(%s), task is exiting", e.getMessage());
+                break;
             }
         }
         return i;

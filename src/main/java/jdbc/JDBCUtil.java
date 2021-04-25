@@ -9,9 +9,6 @@ import javax.sql.DataSource;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
-/**
- * JDBCUtil
- */
 public class JDBCUtil {
 
     private static DataSource ds = new ComboPooledDataSource("oracle");

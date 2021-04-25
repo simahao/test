@@ -22,6 +22,7 @@ This file is based on the checkstyle file of Apache Beam.
     zhanghao    1.7         2019/08/14      add some checker.checkstyle upgrade to 8.23.
     zhanghao    1.8         2019/08/16      refactor order of checkers by classify.
     zhanghao    1.9         2020/07/26      support checkstyle8.25
+    zhanghao    1.10        2021/4/25       support checkstyle8.41.1
 -->
 <module name="Checker">
     <property name="severity" value="error"/>
@@ -187,9 +188,6 @@ This file is based on the checkstyle file of Apache Beam.
         <!-- Checks the Javadoc of a method or constructor -->
         <module name="JavadocMethod">
             <property name="scope" value="protected"/>
-            <property name="allowMissingThrowsTags" value="true"/>
-            <property name="allowUndeclaredRTE" value="true"/>
-            <property name="allowThrowsTagsForSubclasses" value="true"/>
             <property name="allowedAnnotations" value="Override"/>
         </module>
 

@@ -10,18 +10,14 @@ import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.leader.LeaderSelector;
 import org.apache.curator.framework.recipes.leader.LeaderSelectorListenerAdapter;
 
-/**
- * An example leader selector client. Note that
- * {@link LeaderSelectorListenerAdapter} which has the recommended handling for
- * connection state issues
- */
 public class Client extends LeaderSelectorListenerAdapter implements Closeable {
     private final String name;
+
     private final LeaderSelector leaderSelector;
+
     private final AtomicInteger leaderCount = new AtomicInteger();
 
-    public Client(CuratorFramework client, String path, String name)
-    {
+    public Client(CuratorFramework client, String path, String name) {
         this.name = name;
 
         // create a leader selector using the given path for management
