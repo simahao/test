@@ -53,11 +53,7 @@ public class SleepAndWait {
         final SleepAndWait sw2 = new SleepAndWait();
 
         for (int i = 0; i < 3; i++) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    sw2.waitTest();
-                }}).start();
+            new Thread(() -> sw2.waitTest()).start();
         }
     }
 }
