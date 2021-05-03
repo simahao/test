@@ -242,4 +242,16 @@
       </plugin>
     </plugins>
   </reporting>
+  <distributionManagement>
+    <repository>
+      <id>dev2-nexus3</id>
+      <name>release repository for deployment</name>
+      <url>http://192.168.128.128:8082/repository/maven-releases/</url>
+    </repository>
+    <snapshotRepository>
+      <id>dev2-nexus3</id>
+      <name>snapshots repository for deployment</name>
+      <url>http://192.168.128.128:8082/repository/maven-snapshots/</url>
+    </snapshotRepository>
+  </distributionManagement>
 </project>
