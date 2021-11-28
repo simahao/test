@@ -29,17 +29,23 @@
     <mvn-deploy.version>3.0.0-M1</mvn-deploy.version>
     <mvn-reports.version>3.1.1</mvn-reports.version>
     <jackson-databind.version>2.12.2</jackson-databind.version>
-    <kafka-client.version>2.7.0</kafka-client.version>
+    <kafka-client.version>2.6.0</kafka-client.version>
     <slf4j.version>1.7.30</slf4j.version>
     <log4j2.version>2.14.1</log4j2.version>
+    <protobuf.version>3.8.0</protobuf.version>
 
     <!--test components-->
     <curator-recipes.version>2.9.1</curator-recipes.version>
     <c3p0.version>0.9.5.4</c3p0.version>
-    <ojdbc8.version>12.2.0.1</ojdbc8.version>
+    <ojdbc8.version>19.3.0.0</ojdbc8.version>
   </properties>
 
   <dependencies>
+    <dependency>
+        <groupId>com.google.protobuf</groupId>
+        <artifactId>protobuf-java</artifactId>
+        <version>${protobuf.version}</version>
+    </dependency>
 
     <dependency>
       <groupId>com.mchange</groupId>
@@ -48,7 +54,7 @@
     </dependency>
 
     <dependency>
-        <groupId>com.oracle</groupId>
+        <groupId>com.oracle.database.jdbc</groupId>
         <artifactId>ojdbc8</artifactId>
         <version>${ojdbc8.version}</version>
     </dependency>
@@ -114,7 +120,12 @@
         <artifactId>kafka_2.12</artifactId>
         <version>${kafka-client.version}</version>
     </dependency>
-
+  
+    <dependency>
+      <groupId>org.apache.kafka</groupId>
+      <artifactId>kafka-clients</artifactId>
+      <version>2.3.0</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -242,16 +253,4 @@
       </plugin>
     </plugins>
   </reporting>
-  <distributionManagement>
-    <repository>
-      <id>dev2-nexus3</id>
-      <name>release repository for deployment</name>
-      <url>http://192.168.128.128:8082/repository/maven-releases/</url>
-    </repository>
-    <snapshotRepository>
-      <id>dev2-nexus3</id>
-      <name>snapshots repository for deployment</name>
-      <url>http://192.168.128.128:8082/repository/maven-snapshots/</url>
-    </snapshotRepository>
-  </distributionManagement>
 </project>

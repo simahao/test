@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE suppressions PUBLIC
+    "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
+    "https://checkstyle.org/dtds/suppressions_1_2.dtd">
+<!-- 
+    author      version     date          remark
+    zhanghao    1.0         2018/04/17    init
+    zhanghao    1.1         2018/4/28     update dtd link for security
+-->
+<suppressions>
+    <!-- <suppress checks=".*"
+              files="(.*)Proto.java"/> -->
+    <suppress checks=".*"
+              files="Order.java"/>
+    <suppress checks="MethodLengthCheck"
+              files="(.*)Test.java"/>
+</suppressions>
