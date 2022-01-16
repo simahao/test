@@ -29,7 +29,7 @@ This file is based on the checkstyle file of Apache Beam.
     <property name="charset" value="UTF-8"/>
     <property name="fileExtensions" value="java, properties, xml"/>
     <module name="SuppressionFilter">
-        <property name="file" value="suppressions.xml"/>
+        <property name="file" value="./suppressions.xml"/>
     </module>
     <!-- diff command don't show previous lines as changed and easily add new content -->
     <module name="NewlineAtEndOfFile"/>

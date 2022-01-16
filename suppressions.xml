@@ -8,10 +8,10 @@
     zhanghao    1.1         2018/4/28     update dtd link for security
 -->
 <suppressions>
-    <!-- <suppress checks=".*"
-              files="(.*)Proto.java"/> -->
     <suppress checks=".*"
               files="Order.java"/>
+    <suppress checks=".*"
+              files="target[/\\]"/>
     <suppress checks="MethodLengthCheck"
               files="(.*)Test.java"/>
 </suppressions>
