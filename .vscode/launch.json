@@ -1,0 +1,24 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Launch Eden1",
+            "request": "launch",
+            "mainClass": "visualvm.Eden1",
+            "projectName": "blank",
+            // -Xlog:gc=debug,gc+heap=debug,gc+start*=debug,gc+marking*=debug,gc+ergo*=trace,gc+phases*=debug:file=gc.log:time,uptime,level,tags:filecount=5,filesize=100m"
+            //-XX:InitiatingHeapOccupancyPercent=10
+            "vmArgs": "-XX:+UseG1GC -Xms1000m -Xmx1000m -XX:InitiatingHeapOccupancyPercent=10 -XX:MaxGCPauseMillis=10 -Xlog:gc=debug,gc+heap=debug,gc+start*=trace,gc+marking*=debug,gc+ergo*=trace,gc+phases*=debug:file=gc.log:time,uptime,level,tags:filecount=5,filesize=100m"
+        },
+    ]
+}
