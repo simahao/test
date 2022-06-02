@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch MyApp",
+            "request": "launch",
+            "mainClass": "logtest.MyApp",
+            "projectName": "blank"
+        },
+        {
+            "type": "java",
+            "name": "Launch Application",
+            "request": "launch",
+            "mainClass": "hz.Application",
+            "projectName": "blank"
+        },
+        {
+            "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}"
@@ -16,9 +30,7 @@
             "request": "launch",
             "mainClass": "visualvm.Eden1",
             "projectName": "blank",
-            // -Xlog:gc=debug,gc+heap=debug,gc+start*=debug,gc+marking*=debug,gc+ergo*=trace,gc+phases*=debug:file=gc.log:time,uptime,level,tags:filecount=5,filesize=100m"
-            //-XX:InitiatingHeapOccupancyPercent=10
             "vmArgs": "-XX:+UseG1GC -Xms1000m -Xmx1000m -XX:InitiatingHeapOccupancyPercent=10 -XX:MaxGCPauseMillis=10 -Xlog:gc=debug,gc+heap=debug,gc+start*=trace,gc+marking*=debug,gc+ergo*=trace,gc+phases*=debug:file=gc.log:time,uptime,level,tags:filecount=5,filesize=100m"
-        },
+        }
     ]
 }
