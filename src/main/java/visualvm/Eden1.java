@@ -11,7 +11,8 @@ import java.util.Random;
 public class Eden1 {
     public static void main(String[] args) throws InterruptedException {
         // string();
-        map1();
+        // map1();
+        ygc();
     }
 
     private static void string() throws InterruptedException {
@@ -29,6 +30,7 @@ public class Eden1 {
     private static void ygc() throws InterruptedException {
         while (true) {
             byte[] mem = new byte[300 * 1024];
+            System.out.println("ygc");
             Thread.sleep(1);
         }
     }
