@@ -19,7 +19,7 @@
   </Appenders>
   <Loggers>
     <Root level="trace">
-      <!-- <AppenderRef ref="RollingFile"/> -->
+      <AppenderRef ref="RollingFile"/>
       <AppenderRef ref="STDOUT"/>
     </Root>
   </Loggers>

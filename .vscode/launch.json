@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch Test",
+            "request": "launch",
+            "mainClass": "yaml.Test",
+            "projectName": "blank"
+        },
+        {
+            "type": "java",
+            "name": "Launch StableSortBug",
+            "request": "launch",
+            "mainClass": "thread.sort.StableSortBug",
+            "projectName": "blank"
+        },
+        {
+            "type": "java",
             "name": "Launch MyApp",
             "request": "launch",
             "mainClass": "logtest.MyApp",

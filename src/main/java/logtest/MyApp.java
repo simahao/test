@@ -1,13 +1,13 @@
 package logtest;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MyApp {
 
     // Define a static logger variable so that it references the
     // Logger instance named "MyApp".
-    private static final Logger LOGGER = LogManager.getLogger(MyApp.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MyApp.class);
 
     public static void main(final String... args) {
 

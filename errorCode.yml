@@ -1,0 +1,19 @@
+modules:
+- name: module1
+  packages:
+  - name: checkstyle.pack1
+    clazzes:
+      - name: Test1
+        errorCode: "1110"
+      - name: Test2
+        errorCode: "1120"
+  - name: checkstyle.pack2
+    clazzes:
+      - name: Test1
+        errorCode: "1210"
+- name: module2
+  packages:
+  - name: checkstyle.pack2
+    clazzes:
+    - name: Test1
+      errorCode: "2210"
