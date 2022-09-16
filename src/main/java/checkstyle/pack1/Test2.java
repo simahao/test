@@ -4,7 +4,7 @@ import checkstyle.BizException;
 
 public class Test2 {
     public void test() throws BizException {
-        throw new BizException("1130", "abc");
+        throw new BizException("1120", "abc");
     }
 
     public static void main(String[] args) throws Exception {

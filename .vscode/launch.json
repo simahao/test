@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch Sort",
+            "request": "launch",
+            "mainClass": "jmh.Sort",
+            "projectName": "blank"
+        },
+        {
+            "type": "java",
+            "name": "Launch Box",
+            "request": "launch",
+            "mainClass": "jmh.Box",
+            "projectName": "blank"
+        },
+        {
+            "type": "java",
             "name": "Launch Test",
             "request": "launch",
             "mainClass": "yaml.Test",
