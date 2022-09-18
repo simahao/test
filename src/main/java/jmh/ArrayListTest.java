@@ -11,134 +11,67 @@ import org.openjdk.jmh.annotations.Fork;
 import org.openjdk.jmh.annotations.Measurement;
 import org.openjdk.jmh.annotations.Mode;
 import org.openjdk.jmh.annotations.OutputTimeUnit;
+import org.openjdk.jmh.annotations.Param;
+import org.openjdk.jmh.annotations.Scope;
+import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.annotations.Warmup;
-import org.openjdk.jmh.infra.Blackhole;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
-@Warmup(iterations = 3)
+@Warmup(iterations = 1)
 @Measurement(iterations = 3)
-@Fork(1)
+@Fork(value=1, jvmArgsAppend = {"-Xms12g", "-Xmx12g", "-server"})
+@State(value = Scope.Benchmark)
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
 @BenchmarkMode(Mode.AverageTime)
 public class ArrayListTest {
 
-    private static int size = 10000000;
+    @Param(value = {"5000000"})
+    private int size;
 
-    /*@Benchmark
-    public void stringList_notinit(Blackhole bh) {
-        String str = "str";
-        String bhStr = "done";
-        List<String> list = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
-            list.add(str);
+
+    @Param(value = {"200"})
+    private int count;
+
+    @Benchmark
+    public void testBigArray() {
+        for (int i = 0; i < count; i++) {
+            List<Order> order = new ArrayList<>(5000000);
         }
-        bh.consume(bhStr);
     }
 
     @Benchmark
-    public void stringList_init(Blackhole bh) {
-        String str = "str";
-        String bhStr = "done";
-        List<String> list = new ArrayList<>(size);
-        for (int i = 0; i < size; i++) {
-            list.add(str);
+    public void testBigArrayNotInit() {
+        for (int i = 0; i < count; i++) {
+            List<Order> order = new ArrayList<Order>();
         }
-        bh.consume(bhStr);
     }
+    // @Benchmark
+    // public void listNotInit(Blackhole bh) {
+    //     List<Order> list = new ArrayList<>();
+    //     for (int i = 0; i < size; i++) {
+    //         Order order = getOrder(i);
+    //         list.add(order);
+    //     }
+    //     bh.consume(list);
+    // }
 
-    @Benchmark
-    public void stringList_init1W(Blackhole bh) {
-        String str = "str";
-        String bhStr = "done";
-        List<String> list = new ArrayList<>(10000);
-        for (int i = 0; i < size; i++) {
-            list.add(str);
-        }
-        bh.consume(bhStr);
-    }
+    // @Benchmark
+    // public void listInit(Blackhole bh) {
+    //     List<Order> list = new ArrayList<>(size);
+    //     for (int i = 0; i < size; i++) {
+    //         Order order = getOrder(i);
+    //         list.add(order);
+    //     }
+    //     bh.consume(list);
+    // }
 
-    @Benchmark
-    public void stringList_init10W(Blackhole bh) {
-        String str = "str";
-        String bhStr = "done";
-        List<String> list = new ArrayList<>(100000);
-        for (int i = 0; i < size; i++) {
-            list.add(str);
-        }
-        bh.consume(bhStr);
-    }*/
 
-    @Benchmark
-    public void orderList_notinit(Blackhole bh) {
-        Order order = getOrder(1L);
-        String bhStr = "done";
-        List<Order> list = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
-            list.add(order);
-        }
-        bh.consume(bhStr);
-    }
-
-    /*@Benchmark
-    public void orderList_init(Blackhole bh) {
-        Order order = getOrder(1L);
-        String bhStr = "done";
-        List<Order> list = new ArrayList<>(size);
-        for (int i = 0; i < size; i++) {
-            list.add(order);
-        }
-        bh.consume(bhStr);
-    }*/
-
-    /*@Benchmark
-    public void orderList_init1W(Blackhole bh) {
-        Order order = getOrder(1L);
-        String bhStr = "done";
-        List<Order> list = new ArrayList<>(10000);
-        for (int i = 0; i < size; i++) {
-            list.add(order);
-        }
-        bh.consume(bhStr);
-    }*/
-
-    /*@Benchmark
-    public void orderList_init10W(Blackhole bh) {
-        Order order = getOrder(1L);
-        String bhStr = "done";
-        List<Order> list = new ArrayList<>(100000);
-        for (int i = 0; i < size; i++) {
-            list.add(order);
-        }
-        bh.consume(bhStr);
-    }*/
-
-    private static Order getOrder(long size) {
-        Order order = new Order();
-        String str = String.valueOf(size);
-        BigDecimal bigDecimal = BigDecimal.valueOf(size);
-        order.setsProp1(str);
-        order.setsProp2(str);
-        order.setsProp3(str);
-        order.setsProp4(str);
-        order.setsProp5(str);
-        order.setBigDecimal1(bigDecimal);
-        order.setBigDecimal2(bigDecimal);
-        order.setBigDecimal3(bigDecimal);
-        order.setBigDecimal4(bigDecimal);
-        order.setBigDecimal5(bigDecimal);
-        order.setBigDecimal6(bigDecimal);
-        order.setBigDecimal7(bigDecimal);
-        order.setBigDecimal8(bigDecimal);
-        order.setBigDecimal9(bigDecimal);
-        order.setBigDecimal10(bigDecimal);
-        order.setBigDecimal11(bigDecimal);
-        order.setBigDecimal12(bigDecimal);
-        order.setBigDecimal13(bigDecimal);
-        order.setBigDecimal14(bigDecimal);
-        order.setBigDecimal15(bigDecimal);
-        return order;
+    private static Order getOrder(int i) {
+        return new Order("20220908", new BigDecimal(i), new BigDecimal(i), "000"+i, "0000000"+i, "arbiContractId"+i,
+                "contractId", new BigDecimal(i), "orderSort", new BigDecimal(i), new BigDecimal(i), new BigDecimal(i), BigDecimal.TEN, "1", "1", "1",
+                "attr", "0", "10:33:33", "0", new BigDecimal(i), new BigDecimal(i), "0", "1", new BigDecimal(i), "0");
     }
 
     public static void main(String[] args) throws Exception{

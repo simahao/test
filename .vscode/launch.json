@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch Apple",
+            "request": "launch",
+            "mainClass": "generic.Apple",
+            "projectName": "blank"
+        },
+        {
+            "type": "java",
+            "name": "Launch ArrayListTest",
+            "request": "launch",
+            "mainClass": "jmh.ArrayListTest",
+            "projectName": "blank"
+        },
+        {
+            "type": "java",
             "name": "Launch Sort",
             "request": "launch",
             "mainClass": "jmh.Sort",

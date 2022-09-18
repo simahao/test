@@ -3,184 +3,270 @@ package jmh;
 import java.math.BigDecimal;
 
 public class Order {
-    private String sProp1;
-    private String sProp2;
-    private String sProp3;
-    private String sProp4;
-    private String sProp5;
-    private BigDecimal bigDecimal1;
-    private BigDecimal bigDecimal2;
-    private BigDecimal bigDecimal3;
-    private BigDecimal bigDecimal4;
-    private BigDecimal bigDecimal5;
-    private BigDecimal bigDecimal6;
-    private BigDecimal bigDecimal7;
-    private BigDecimal bigDecimal8;
-    private BigDecimal bigDecimal9;
-    private BigDecimal bigDecimal10;
-    private BigDecimal bigDecimal11;
-    private BigDecimal bigDecimal12;
-    private BigDecimal bigDecimal13;
-    private BigDecimal bigDecimal14;
-    private BigDecimal bigDecimal15;
 
-    public String getsProp1() {
-        return sProp1;
+    private String tradeDate;
+    private BigDecimal orderNo;
+    private BigDecimal pid;
+    private String memberId;
+    private String clientId;
+    private String arbiContractId;
+    private String contractId;
+    private BigDecimal traderNo;
+    private String orderSort;
+    private BigDecimal orderBatchNo;
+    private BigDecimal localNo;
+    private BigDecimal price;
+    private BigDecimal qty;
+    private String eoFlag;
+    private String bsFlag;
+    private String shFlag;
+    private String orderAttr;
+    private String orderType;
+    private String orderTime;
+    private String status;
+    private BigDecimal lastMatchPrice;
+    private BigDecimal matchQty;
+    private String orderSrc;
+    private String ifMktmk;
+    private BigDecimal concelTid;
+    private String ifHfExempt;
+
+    public Order(String tradeDate, BigDecimal orderNo, BigDecimal pid, String memberId, String clientId, String arbiContractId, String contractId, BigDecimal traderNo, String orderSort, BigDecimal orderBatchNo,
+                 BigDecimal localNo, BigDecimal price, BigDecimal qty, String eoFlag, String bsFlag, String shFlag, String orderAttr, String orderType, String orderTime, String status,
+                 BigDecimal lastMatchPrice, BigDecimal matchQty, String orderSrc, String ifMktmk, BigDecimal concelTid, String ifHfExempt) {
+        this.tradeDate = tradeDate;
+        this.orderNo = orderNo;
+        this.pid = pid;
+        this.memberId = memberId;
+        this.clientId = clientId;
+        this.arbiContractId = arbiContractId;
+        this.contractId = contractId;
+        this.traderNo = traderNo;
+        this.orderSort = orderSort;
+        this.orderBatchNo = orderBatchNo;
+        this.localNo = localNo;
+        this.price = price;
+        this.qty = qty;
+        this.eoFlag = eoFlag;
+        this.bsFlag = bsFlag;
+        this.shFlag = shFlag;
+        this.orderAttr = orderAttr;
+        this.orderType = orderType;
+        this.orderTime = orderTime;
+        this.status = status;
+        this.lastMatchPrice = lastMatchPrice;
+        this.matchQty = matchQty;
+        this.orderSrc = orderSrc;
+        this.ifMktmk = ifMktmk;
+        this.concelTid = concelTid;
+        this.ifHfExempt = ifHfExempt;
     }
 
-    public void setsProp1(String sProp1) {
-        this.sProp1 = sProp1;
+    public String getTradeDate() {
+        return tradeDate;
     }
 
-    public String getsProp2() {
-        return sProp2;
+    public void setTradeDate(String tradeDate) {
+        this.tradeDate = tradeDate;
     }
 
-    public void setsProp2(String sProp2) {
-        this.sProp2 = sProp2;
+    public BigDecimal getOrderNo() {
+        return orderNo;
     }
 
-    public String getsProp3() {
-        return sProp3;
+    public void setOrderNo(BigDecimal orderNo) {
+        this.orderNo = orderNo;
     }
 
-    public void setsProp3(String sProp3) {
-        this.sProp3 = sProp3;
+    public BigDecimal getPid() {
+        return pid;
     }
 
-    public String getsProp4() {
-        return sProp4;
+    public void setPid(BigDecimal pid) {
+        this.pid = pid;
     }
 
-    public void setsProp4(String sProp4) {
-        this.sProp4 = sProp4;
+    public String getMemberId() {
+        return memberId;
     }
 
-    public String getsProp5() {
-        return sProp5;
+    public void setMemberId(String memberId) {
+        this.memberId = memberId;
     }
 
-    public void setsProp5(String sProp5) {
-        this.sProp5 = sProp5;
+    public String getClientId() {
+        return clientId;
     }
 
-    public BigDecimal getBigDecimal1() {
-        return bigDecimal1;
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
     }
 
-    public void setBigDecimal1(BigDecimal bigDecimal1) {
-        this.bigDecimal1 = bigDecimal1;
+    public String getArbiContractId() {
+        return arbiContractId;
     }
 
-    public BigDecimal getBigDecimal2() {
-        return bigDecimal2;
+    public void setArbiContractId(String arbiContractId) {
+        this.arbiContractId = arbiContractId;
     }
 
-    public void setBigDecimal2(BigDecimal bigDecimal2) {
-        this.bigDecimal2 = bigDecimal2;
+    public String getContractId() {
+        return contractId;
     }
 
-    public BigDecimal getBigDecimal3() {
-        return bigDecimal3;
+    public void setContractId(String contractId) {
+        this.contractId = contractId;
     }
 
-    public void setBigDecimal3(BigDecimal bigDecimal3) {
-        this.bigDecimal3 = bigDecimal3;
+    public BigDecimal getTraderNo() {
+        return traderNo;
     }
 
-    public BigDecimal getBigDecimal4() {
-        return bigDecimal4;
+    public void setTraderNo(BigDecimal traderNo) {
+        this.traderNo = traderNo;
     }
 
-    public void setBigDecimal4(BigDecimal bigDecimal4) {
-        this.bigDecimal4 = bigDecimal4;
+    public String getOrderSort() {
+        return orderSort;
     }
 
-    public BigDecimal getBigDecimal5() {
-        return bigDecimal5;
+    public void setOrderSort(String orderSort) {
+        this.orderSort = orderSort;
     }
 
-    public void setBigDecimal5(BigDecimal bigDecimal5) {
-        this.bigDecimal5 = bigDecimal5;
+    public BigDecimal getOrderBatchNo() {
+        return orderBatchNo;
     }
 
-    public BigDecimal getBigDecimal6() {
-        return bigDecimal6;
+    public void setOrderBatchNo(BigDecimal orderBatchNo) {
+        this.orderBatchNo = orderBatchNo;
     }
 
-    public void setBigDecimal6(BigDecimal bigDecimal6) {
-        this.bigDecimal6 = bigDecimal6;
+    public BigDecimal getLocalNo() {
+        return localNo;
     }
 
-    public BigDecimal getBigDecimal7() {
-        return bigDecimal7;
+    public void setLocalNo(BigDecimal localNo) {
+        this.localNo = localNo;
     }
 
-    public void setBigDecimal7(BigDecimal bigDecimal7) {
-        this.bigDecimal7 = bigDecimal7;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public BigDecimal getBigDecimal8() {
-        return bigDecimal8;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
-    public void setBigDecimal8(BigDecimal bigDecimal8) {
-        this.bigDecimal8 = bigDecimal8;
+    public BigDecimal getQty() {
+        return qty;
     }
 
-    public BigDecimal getBigDecimal9() {
-        return bigDecimal9;
+    public void setQty(BigDecimal qty) {
+        this.qty = qty;
     }
 
-    public void setBigDecimal9(BigDecimal bigDecimal9) {
-        this.bigDecimal9 = bigDecimal9;
+    public String getEoFlag() {
+        return eoFlag;
     }
 
-    public BigDecimal getBigDecimal10() {
-        return bigDecimal10;
+    public void setEoFlag(String eoFlag) {
+        this.eoFlag = eoFlag;
     }
 
-    public void setBigDecimal10(BigDecimal bigDecimal10) {
-        this.bigDecimal10 = bigDecimal10;
+    public String getBsFlag() {
+        return bsFlag;
     }
 
-    public BigDecimal getBigDecimal11() {
-        return bigDecimal11;
+    public void setBsFlag(String bsFlag) {
+        this.bsFlag = bsFlag;
     }
 
-    public void setBigDecimal11(BigDecimal bigDecimal11) {
-        this.bigDecimal11 = bigDecimal11;
+    public String getShFlag() {
+        return shFlag;
     }
 
-    public BigDecimal getBigDecimal12() {
-        return bigDecimal12;
+    public void setShFlag(String shFlag) {
+        this.shFlag = shFlag;
     }
 
-    public void setBigDecimal12(BigDecimal bigDecimal12) {
-        this.bigDecimal12 = bigDecimal12;
+    public String getOrderAttr() {
+        return orderAttr;
     }
 
-    public BigDecimal getBigDecimal13() {
-        return bigDecimal13;
+    public void setOrderAttr(String orderAttr) {
+        this.orderAttr = orderAttr;
     }
 
-    public void setBigDecimal13(BigDecimal bigDecimal13) {
-        this.bigDecimal13 = bigDecimal13;
+    public String getOrderType() {
+        return orderType;
     }
 
-    public BigDecimal getBigDecimal14() {
-        return bigDecimal14;
+    public void setOrderType(String orderType) {
+        this.orderType = orderType;
     }
 
-    public void setBigDecimal14(BigDecimal bigDecimal14) {
-        this.bigDecimal14 = bigDecimal14;
+    public String getOrderTime() {
+        return orderTime;
     }
 
-    public BigDecimal getBigDecimal15() {
-        return bigDecimal15;
+    public void setOrderTime(String orderTime) {
+        this.orderTime = orderTime;
     }
 
-    public void setBigDecimal15(BigDecimal bigDecimal15) {
-        this.bigDecimal15 = bigDecimal15;
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public BigDecimal getLastMatchPrice() {
+        return lastMatchPrice;
+    }
+
+    public void setLastMatchPrice(BigDecimal lastMatchPrice) {
+        this.lastMatchPrice = lastMatchPrice;
+    }
+
+    public BigDecimal getMatchQty() {
+        return matchQty;
+    }
+
+    public void setMatchQty(BigDecimal matchQty) {
+        this.matchQty = matchQty;
+    }
+
+    public String getOrderSrc() {
+        return orderSrc;
+    }
+
+    public void setOrderSrc(String orderSrc) {
+        this.orderSrc = orderSrc;
+    }
+
+    public String getIfMktmk() {
+        return ifMktmk;
+    }
+
+    public void setIfMktmk(String ifMktmk) {
+        this.ifMktmk = ifMktmk;
+    }
+
+    public BigDecimal getConcelTid() {
+        return concelTid;
+    }
+
+    public void setConcelTid(BigDecimal concelTid) {
+        this.concelTid = concelTid;
+    }
+
+    public String getIfHfExempt() {
+        return ifHfExempt;
+    }
+
+    public void setIfHfExempt(String ifHfExempt) {
+        this.ifHfExempt = ifHfExempt;
     }
 }
