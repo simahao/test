@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch PerfTest",
+            "request": "launch",
+            "mainClass": "stream.PerfTest",
+            "projectName": "blank"
+        },
+        {
+            "type": "java",
+            "name": "Launch StreamTest",
+            "request": "launch",
+            "mainClass": "stream.StreamTest",
+            "projectName": "blank"
+        },
+        {
+            "type": "java",
             "name": "Launch Apple",
             "request": "launch",
             "mainClass": "generic.Apple",

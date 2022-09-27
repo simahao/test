@@ -1,10 +1,5 @@
 package jmh;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Fork;
@@ -19,9 +14,14 @@ import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 @Warmup(iterations = 1)
 @Measurement(iterations = 3)
-@Fork(value=1, jvmArgsAppend = {"-Xms12g", "-Xmx12g", "-server"})
+@Fork(value = 1, jvmArgsAppend = {"-Xms12g", "-Xmx12g", "-server"})
 @State(value = Scope.Benchmark)
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
 @BenchmarkMode(Mode.AverageTime)
@@ -69,7 +69,7 @@ public class ArrayListTest {
 
 
     private static Order getOrder(int i) {
-        return new Order("20220908", new BigDecimal(i), new BigDecimal(i), "000"+i, "0000000"+i, "arbiContractId"+i,
+        return new Order("20220908", new BigDecimal(i), new BigDecimal(i), "000" + i, "0000000" + i, "arbiContractId" + i,
                 "contractId", new BigDecimal(i), "orderSort", new BigDecimal(i), new BigDecimal(i), new BigDecimal(i), BigDecimal.TEN, "1", "1", "1",
                 "attr", "0", "10:33:33", "0", new BigDecimal(i), new BigDecimal(i), "0", "1", new BigDecimal(i), "0");
     }
