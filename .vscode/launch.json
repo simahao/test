@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch NewTask",
+            "request": "launch",
+            "mainClass": "thread.forkjoin.NewTask",
+            "projectName": "blank"
+        },
+        {
+            "type": "java",
             "name": "Launch PerfTest",
             "request": "launch",
             "mainClass": "stream.PerfTest",
