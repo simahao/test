@@ -13,6 +13,7 @@ public class MmTable<T extends Fruit> implements Table<T> {
     public void create(List<T> data) {
         this.data = data;
     }
+
     @Override
     public List<T> getList() {
         return data;

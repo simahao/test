@@ -74,11 +74,11 @@ public class ArrayListTest {
                 "attr", "0", "10:33:33", "0", new BigDecimal(i), new BigDecimal(i), "0", "1", new BigDecimal(i), "0");
     }
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
+
         Options options = new OptionsBuilder()
                 .include(ArrayListTest.class.getName())
                 .build();
         new Runner(options).run();
     }
-
 }

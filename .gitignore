@@ -28,3 +28,5 @@ target
 hs_err_pid*
 *.gz
 gc*
+
+.vscode
