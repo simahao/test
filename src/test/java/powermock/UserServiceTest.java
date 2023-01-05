@@ -86,4 +86,19 @@ public class UserServiceTest {
         Long actual = userService2.getUserLimit();
         Assert.assertEquals(expected, actual);
     }
+
+    /**
+     * 测试模拟私有方法，采用when的方式
+     * @throws Exception
+     */
+    @Test
+    public void testIsNotSuperUser() throws Exception {
+        Long userId = 1L;
+        boolean expeceted = false;
+        UserService userService = PowerMockito.spy(new UserService());
+
+        PowerMockito.when(userService, "isSuperUser", userId).thenReturn(!expeceted);
+        boolean actual = userService.isNotSuperUser(userId);
+        Assert.assertEquals(expeceted, actual);
+    }
 }
