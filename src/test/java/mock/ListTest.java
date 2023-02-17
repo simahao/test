@@ -1,4 +1,4 @@
-package powermock;
+package mock;
 
 
 import org.junit.Assert;

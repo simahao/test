@@ -1,4 +1,4 @@
-package powermock;
+package mock;
 
 public class StringUtils {
     public static boolean isNotEmpty(final CharSequence cs) {

@@ -1,4 +1,4 @@
-package powermock;
+package mock;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,11 +7,14 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public final class Circle {
+public class Rectangle {
+    private double width;
 
-    private double radius;
+    private double height;
 
     public double getArea() {
-        return Math.PI * Math.pow(radius, 2);
+        return width * height;
     }
 }
+
+

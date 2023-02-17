@@ -1,4 +1,4 @@
-package powermock;
+package mock;
 
 import java.io.File;
 
