@@ -28,4 +28,6 @@ target
 hs_err_pid*
 *.gz
 gc*
+node_modules
+package-lock.json
 

@@ -1,52 +1,30 @@
 package hz;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 public class Application {
 
-    List<Bean> getList() {
-        Bean b1 = new Bean(1, "1");
-        Bean b2 = new Bean(2, "2");
-        Bean b3 = new Bean(3, "3");
-        List<Bean> list = new ArrayList<>();
-        list.add(b1);
-        list.add(b2);
-        list.add(b3);
-        return list;
-    }
-
     public static void main(String[] args) {
-        Application al = new Application();
-        List<Bean> list = al.getList();
-        Map<Integer, Bean> map = new HashMap<>();
-
-        for (Bean node : list) {
-            map.put(node.getId(), node);
-        }
-
-        Bean tmp = null;
-        for (Bean node : list) {
-            if (node.getId().equals(1)) {
-                tmp = map.get(node.getId());
-                tmp.setName("11");
-            } else if (node.getId().equals(2)) {
-                tmp = map.get(node.getId());
-                tmp.setName("22");
-            } else {
-                tmp = map.get(node.getId());
-                tmp.setName("33");
-            }
-        }
-
-        for (Bean node : list) {
-            System.out.println("node id:" + node.getId() + "  node name:" + node.getName());
-        }
-
-        for (Map.Entry<Integer, Bean> entry: map.entrySet()) {
-            System.out.println("node id:" + entry.getKey() + "  node name:" + entry.getValue().getName());
-        }
+        double g = Double.parseDouble("4.6");
+        double a = g;
+        double b = a * 100;
+        double c = 4.6 * 100;
+        double d = 460;
+        double e = d * 100;
+        double f = a + a + a + a + a + a + a + a + a + a
+                + a + a + a + a + a + a + a + a + a + a
+                + a + a + a + a + a + a + a + a + a + a
+                + a + a + a + a + a + a + a + a + a + a
+                + a + a + a + a + a + a + a + a + a + a
+                + a + a + a + a + a + a + a + a + a + a
+                + a + a + a + a + a + a + a + a + a + a
+                + a + a + a + a + a + a + a + a + a + a
+                + a + a + a + a + a + a + a + a + a + a
+                + a + a + a + a + a + a + a + a + a + a;
+        System.out.println(g);
+        System.out.printf("4.6       a = %.70f \n", a);
+        System.out.printf("a * 100   b = %.100f \n", b);
+        System.out.printf("4.6 * 100 c = %.100f \n", c);
+        System.out.printf("460       d = %.100f \n", d);
+        System.out.printf("d * 100   e = %.100f \n", e);
+        System.out.printf("a + .+.a  f = %.100f \n", f);
     }
 }
