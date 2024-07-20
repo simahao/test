@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "FloatTest",
+            "request": "launch",
+            "mainClass": "floattest.FloatTest",
+            "projectName": "blank"
+        },
+        {
+            "type": "java",
             "name": "Launch Test",
             "request": "launch",
             "mainClass": "yaml.Test",
