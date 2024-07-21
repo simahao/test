@@ -2,7 +2,7 @@ package floattest;
 
 public class FloatTest {
     public static void main(String[] args) {
-        float v1= 932.525f;
+        float v1 = 932.525f;
         //这里先写24位，因为第23位是通过24位决定是否舍入
         //1110100100.10000110011001
         //进位之后保留23位有效数字
@@ -17,7 +17,7 @@ public class FloatTest {
         System.out.printf("%.2f\n", v1);
         System.out.println(v1);
 
-        float v2= 932.535f;
+        float v2 = 932.535f;
         //1110100100.100010001111010
         //进位之后保留23位有效数字
         //1110100100.10001000111101，这个二进制对应十进制932.534973
