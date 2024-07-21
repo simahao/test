@@ -13,6 +13,90 @@
         },
         {
             "type": "java",
+            "name": "Launch CacheHelper",
+            "request": "launch",
+            "mainClass": "cache.CacheHelper",
+            "projectName": "blank"
+        },
+        {
+            "type": "java",
+            "name": "Launch SortArrayTaskTest",
+            "request": "launch",
+            "mainClass": "thread.forkjoin.SortArrayTaskTest",
+            "projectName": "blank"
+        },
+        {
+            "type": "java",
+            "name": "Launch CalculateTask",
+            "request": "launch",
+            "mainClass": "thread.forkjoin.CalculateTask",
+            "projectName": "blank"
+        },
+        {
+            "type": "java",
+            "name": "Launch Stop2",
+            "request": "launch",
+            "mainClass": "stopwatch.Stop2",
+            "projectName": "blank"
+        },
+        {
+            "type": "java",
+            "name": "Launch Stop",
+            "request": "launch",
+            "mainClass": "stopwatch.Stop",
+            "projectName": "blank"
+        },
+        {
+            "type": "java",
+            "name": "Launch NewTask",
+            "request": "launch",
+            "mainClass": "thread.forkjoin.NewTask",
+            "projectName": "blank"
+        },
+        {
+            "type": "java",
+            "name": "Launch PerfTest",
+            "request": "launch",
+            "mainClass": "stream.PerfTest",
+            "projectName": "blank"
+        },
+        {
+            "type": "java",
+            "name": "Launch StreamTest",
+            "request": "launch",
+            "mainClass": "stream.StreamTest",
+            "projectName": "blank"
+        },
+        {
+            "type": "java",
+            "name": "Launch Apple",
+            "request": "launch",
+            "mainClass": "generic.Apple",
+            "projectName": "blank"
+        },
+        {
+            "type": "java",
+            "name": "Launch ArrayListTest",
+            "request": "launch",
+            "mainClass": "jmh.ArrayListTest",
+            "projectName": "blank"
+        },
+        {
+            "type": "java",
+            "name": "Launch Sort",
+            "request": "launch",
+            "mainClass": "jmh.Sort",
+            "projectName": "blank"
+        },
+        {
+            "type": "java",
+            "name": "Launch Box",
+            "request": "launch",
+            "mainClass": "jmh.Box",
+            "projectName": "blank"
+        },
+        {
+            "type": "java",
             "name": "Launch Test",
             "request": "launch",
             "mainClass": "yaml.Test",

@@ -63,3 +63,6 @@ grant {
 
 
 -Xlog:gc=debug,gc+region=debug,gc+mmu*=debug,gc+task*=info,gc+heap=debug,gc+ergo*=trace:file=gc.log:time,uptime,level,tags:filecount=5,filesize=10m -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.port=5031 -Djava.rmi.server.hostname=172.29.198.81 -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8000
+
+
+https://zhuanlan.zhihu.com/p/356231884

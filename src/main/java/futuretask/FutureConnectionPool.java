@@ -18,7 +18,7 @@ public class FutureConnectionPool {
     }
 
     private ConcurrentHashMap<Integer, FutureTask<Connection>> connectionPool =
-        new ConcurrentHashMap<Integer, FutureTask<Connection>>();
+        new ConcurrentHashMap<>();
 
     public Connection getConnection(Integer key) throws InterruptedException, ExecutionException {
         FutureTask<Connection> connectionTask = connectionPool.get(key);
@@ -49,26 +49,22 @@ public class FutureConnectionPool {
         return new Connection(key);
     }
 
-    public static void main(String[] args) throws InterruptedException, ExecutionException {
+    public static void main(String[] args) {
 
         final FutureConnectionPool ft = new FutureConnectionPool();
         final Object lock = new Object();
         ExecutorService executor = Executors.newCachedThreadPool();
 
         for (int i = 0; i < 10; i++) {
-            executor.execute(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        // System.out.println("current:" + Thread.currentThread().getName());
-                        Random random = new Random();
-                        int ri = random.nextInt(5);
-                        synchronized (lock) {
-                            ft.getConnection(ri);
-                        }
-                    } catch (InterruptedException | ExecutionException e) {
-                        e.printStackTrace();
+            executor.execute(() -> {
+                try {
+                    Random random = new Random();
+                    int ri = random.nextInt(5);
+                    synchronized (lock) {
+                        ft.getConnection(ri);
                     }
+                } catch (InterruptedException | ExecutionException e) {
+                    e.printStackTrace();
                 }
             });
         }
