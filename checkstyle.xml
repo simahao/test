@@ -314,7 +314,7 @@ This file is based on the checkstyle file of Apache Beam.
         <!-- enforce camel case naming -->
         <module name="AbbreviationAsWordInName">
             <property name="allowedAbbreviationLength" value="0"/>
-            <property name="allowedAbbreviations" value="XML,URL,CSV,DB,JDBC,JSON,EQ,LE,LT,GE,GT,MT,R,X,VO,MT,R,X,TC,CIQ,VT,CAS,JWT"/>
+            <property name="allowedAbbreviations" value="BS,SH,XML,URL,CSV,DB,JDBC,JSON,EQ,LE,LT,GE,GT,MT,R,X,VO,MT,R,X,TC,CIQ,VT,CAS,JWT"/>
         </module>
         <!--Checks that interface type parameter names conform to a format specified by the format property.-->
         <!-- interface First<Tt> {} is valid-->
