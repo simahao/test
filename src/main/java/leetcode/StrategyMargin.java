@@ -23,6 +23,17 @@ public class StrategyMargin {
         //结算价
         private double clearPrice;
 
+        /**
+         * @param variety
+         * @param contract
+         * @param clearPrice
+         */
+        public VarCon(String variety, String contract, double clearPrice) {
+            this.variety = variety;
+            this.contract = contract;
+            this.clearPrice = clearPrice;
+        }
+
         @Override
         public int compareTo(VarCon o) {
             //合约排序也就代表了品种进行了排序
@@ -40,6 +51,17 @@ public class StrategyMargin {
 
         //低腿保证金比例
         private double lowMargin;
+
+        /**
+         * @param variety
+         * @param hightMargin
+         * @param lowMargin
+         */
+        public Lock(String variety, double hightMargin, double lowMargin) {
+            this.variety = variety;
+            this.hightMargin = hightMargin;
+            this.lowMargin = lowMargin;
+        }
     }
 
     //跨期组合参数设置
@@ -52,6 +74,17 @@ public class StrategyMargin {
 
         //低腿保证金
         private double lowMargin;
+
+        /**
+         * @param variety
+         * @param hightMargin
+         * @param lowMargin
+         */
+        public CrossPeriod(String variety, double hightMargin, double lowMargin) {
+            this.variety = variety;
+            this.hightMargin = hightMargin;
+            this.lowMargin = lowMargin;
+        }
     }
 
     //跨品种组合参数设置
@@ -71,6 +104,21 @@ public class StrategyMargin {
         //跨品种组合的优先级
         private int priority;
 
+        /**
+         * @param variety1
+         * @param variety2
+         * @param hightMargin
+         * @param lowMargin
+         * @param priority
+         */
+        public CrossVariety(String variety1, String variety2, double hightMargin, double lowMargin, int priority) {
+            this.variety1 = variety1;
+            this.variety2 = variety2;
+            this.hightMargin = hightMargin;
+            this.lowMargin = lowMargin;
+            this.priority = priority;
+        }
+
         public int getPriority() {
             return priority;
         }
@@ -85,6 +133,15 @@ public class StrategyMargin {
         //组合的优先级
         private int priority;
 
+        /**
+         * @param combinationName
+         * @param priority
+         */
+        public CombinationPriority(String combinationName, int priority) {
+            this.combinationName = combinationName;
+            this.priority = priority;
+        }
+
         public int getPriority() {
             return priority;
         }
@@ -96,6 +153,15 @@ public class StrategyMargin {
 
         //投机套保组合的优先级
         private int priority;
+
+        /**
+         * @param shFlag
+         * @param priority
+         */
+        public SpecHedgePriority(int priority, int shFlag) {
+            this.shFlag = shFlag;
+            this.priority = priority;
+        }
 
         private int getPriority() {
             return priority;
@@ -131,6 +197,29 @@ public class StrategyMargin {
 
         // private List<SpecHedgePriority> specHedgePriority;
 
+        public Combination() {
+        }
+        /**
+         * @param leg1Contract
+         * @param leg2Contract
+         * @param leg1bsFlag
+         * @param leg2bsFlag
+         * @param combinationShFlag
+         * @param comName
+         * @param priority
+         * @param margin
+         */
+        public Combination(String leg1Contract, String leg2Contract, int leg1bsFlag, int leg2bsFlag,
+                int combinationShFlag, String comName, int priority) {
+            this.leg1Contract = leg1Contract;
+            this.leg2Contract = leg2Contract;
+            leg1BSFlag = leg1bsFlag;
+            leg2BSFlag = leg2bsFlag;
+            this.combinationShFlag = combinationShFlag;
+            this.comName = comName;
+            this.priority = priority;
+        }
+
         @Override
         public int compareTo(Combination o) {
             return this.priority - o.priority;
@@ -138,9 +227,6 @@ public class StrategyMargin {
 
         @Override
         public String toString() {
-            // return "Combination [leg1Contract=" + leg1Contract + ", leg2Contract=" + leg2Contract + ", leg1BSFlag="
-            //     + leg1BSFlag + ", leg2BSFlag=" + leg2BSFlag + ", combinationShFlag=" + combinationShFlag + ", comName="
-            //     + comName + ", priority=" + priority + ", margin=" + margin + "]";
             return comName + "," + priority + "," + leg1Contract + "," + leg1BSFlag + "," + combinationShFlag / 10
                 + "," + leg2Contract + "," + leg2BSFlag + "," + combinationShFlag % 10 + "," + margin;
         }
@@ -149,7 +235,7 @@ public class StrategyMargin {
     //交易编码对应的持仓结构
     public static class Posi {
         //交易编码
-        private String tradeNo;
+        // private String tradeNo;
 
         //持仓合约
         private String contract;
@@ -167,6 +253,23 @@ public class StrategyMargin {
 
         //卖持仓量
         private long sellQty;
+
+        /**
+         * @param tradeNo
+         * @param contract
+         * @param buyShFlag
+         * @param sellShFlag
+         * @param buyQty
+         * @param sellQty
+         */
+        public Posi(String contract, int buyShFlag, int sellShFlag, long buyQty, long sellQty) {
+            // this.tradeNo = tradeNo;
+            this.contract = contract;
+            this.buyShFlag = buyShFlag;
+            this.sellShFlag = sellShFlag;
+            this.buyQty = buyQty;
+            this.sellQty = sellQty;
+        }
     }
 
     public static class ConInfo {
@@ -295,11 +398,11 @@ public class StrategyMargin {
             double price1 = conInfoMap.get(contract1).clearPrice;
             double price2 = conInfoMap.get(contract2).clearPrice;
             if (price1 >= price2) {
-                return crossPeriodMarginMap.get(variety1 + variety2).hightMargin * price1 +
-                    crossPeriodMarginMap.get(variety1 + variety2).lowMargin * price2;
+                return crossVarietyMarginMap.get(variety1 + variety2).hightMargin * price1 +
+                    crossVarietyMarginMap.get(variety1 + variety2).lowMargin * price2;
             } else {
-                return crossPeriodMarginMap.get(variety1 + variety2).lowMargin * price1 +
-                    crossPeriodMarginMap.get(variety1 + variety2).hightMargin * price2;
+                return crossVarietyMarginMap.get(variety1 + variety2).lowMargin * price1 +
+                    crossVarietyMarginMap.get(variety1 + variety2).hightMargin * price2;
             }
         } else {
             System.out.println("unexpected combination name:" + type);
@@ -315,7 +418,7 @@ public class StrategyMargin {
     * 对锁组合处理
     * 根据持仓结构，找到符合对锁组合的持仓
     */
-    private void lock(List<VarCon> varConPara, List<Lock> lockPara, List<SpecHedgePriority> specHedgePriority) {
+    public void lock(List<VarCon> varConPara, List<Lock> lockPara, List<SpecHedgePriority> specHedgePriority) {
         //一个合约根据投机套保，买卖生成4条组合信息，由于是同一个合约，买卖颠倒的组合还是同一个组合，因此另外4个不生成
         //a1（买投机）&a1（卖投机）
         //a1（买套保）&a1（卖套保）
@@ -345,9 +448,12 @@ public class StrategyMargin {
      * @param crossPeriodPara 跨期参数
      * @param specHedgePriority 投机套保的优先级参数
      */
-    private void crossPeriod(List<VarCon> varConPara, List<CrossPeriod> crossPeriodPara, List<SpecHedgePriority> specHedgePriority) {
+    public void crossPeriod(List<VarCon> varConPara, List<CrossPeriod> crossPeriodPara, List<SpecHedgePriority> specHedgePriority) {
         for (String variety : varietySet) {
             List<String> contractList = contractListByVarMap.get(variety);
+            if (contractList == null) {
+                continue;
+            }
             for (int i = 0; i < contractList.size(); i++) {
                 for (int j = i + 1; j < contractList.size(); j++) {
                     for (SpecHedgePriority shItem : specHedgePriority) {
@@ -383,12 +489,15 @@ public class StrategyMargin {
      * @param crossVarietyPara 跨品种参数
      * @param specHedgePriority 投机套保的优先级参数
      */
-    private void crossVariety(List<VarCon> varConPara, List<CrossVariety> crossVarietyPara, List<SpecHedgePriority> specHedgePriority) {
+    public void crossVariety(List<VarCon> varConPara, List<CrossVariety> crossVarietyPara, List<SpecHedgePriority> specHedgePriority) {
         for (CrossVariety crossVarietyItem: crossVarietyPara) {
             String variety1 = crossVarietyItem.variety1;
             String variety2 = crossVarietyItem.variety2;
             List<String> contractList1 = contractListByVarMap.get(variety1);
             List<String> contractList2 = contractListByVarMap.get(variety2);
+            if (contractList1 == null || contractList2 == null) {
+                return;
+            }
             for (String contract1: contractList1) {
                 for (String contract2: contractList2) {
                     for (SpecHedgePriority shItem : specHedgePriority) {
@@ -455,13 +564,17 @@ public class StrategyMargin {
         for (VarCon varConItem : varConPara) {
             conInfoMap.put(varConItem.contract, new ConInfo(varConItem.variety, varConItem.clearPrice));
             if (varConItem.variety.compareTo(variety) != 0) {
-                contractListByVarMap.put(variety, contractList);
+                if (variety.length() != 0) {
+                    contractListByVarMap.put(variety, contractList);
+                    contractList = new ArrayList<>();
+                }
                 variety = varConItem.variety;
-                contractList = new ArrayList<>();
+                varietySet.add(variety);
             }
             contractList.add(varConItem.contract);
-            varietySet.add(variety);
         }
+        contractListByVarMap.put(variety, contractList);
+
         //根据lockPara，实现根据品种找到对应的对锁高低腿保证金
         for (Lock lockItem : lockPara) {
             lockMarginMap.put(lockItem.variety, new HightLowMargin(lockItem.hightMargin, lockItem.lowMargin));
@@ -480,101 +593,151 @@ public class StrategyMargin {
             //根据组合优先级设置，生成组合总表，默认应该是先对锁，然后跨期，最后跨品种
             for (CombinationPriority comPri: combinationPriorityPara) {
                 String funName = comPri.combinationName;
-                Method method = cls.getMethod(funName);
+                Method method = cls.getMethod(funName, List.class, List.class, List.class);
                 if ("lock".equals(funName)) {
-                    method.invoke(varConPara, lockPara, specHedgePriority);
+                    method.invoke(this, varConPara, lockPara, specHedgePriority);
                 } else if ("crossPeriod".equals(funName)) {
-                    method.invoke(varConPara, crossPeriodPara, specHedgePriority);
+                    method.invoke(this, varConPara, crossPeriodPara, specHedgePriority);
                 } else if ("crossVariety".equals(funName)) {
-                    method.invoke(varConPara, crossVarietyPara, specHedgePriority);
+                    method.invoke(this, varConPara, crossVarietyPara, specHedgePriority);
                 } else {
                     System.out.println("unexpected combination name in combinationPriorityPara:" + funName);
                     return -7;
                 }
             }
-
-            if (debug) {
-                //打印组合总表信息
-                for (Combination item : combinationSet) {
-                    System.out.println(item.toString());
-                }
-            }
-
-            //通过持仓信息构建对应的map结构，key为posi
-            String contract1;
-            String contract2;
-            int leg1BSFlag;
-            int leg2BSFlag;
-            int leg1SHFlag;
-            int leg2SHFlag;
-            String comInfo;
-
-            //存放最终根据组合总表和持仓结构生成的保证金结果
-            Map<String, Double> marginMap = new HashMap<>();
-            //根据持仓结构构建map，key=(contract,bsflag,shflag),value=qty
-            Map<PosiKey, Long> posiMap = new HashMap<>();
-            for (Posi p : posi) {
-                if (p.buyQty > 0) {
-                    PosiKey pk = new PosiKey(p.contract, 1, p.buyShFlag);
-                    posiMap.put(pk, p.buyQty);
-                }
-                if (p.sellQty > 0) {
-                    PosiKey pk = new PosiKey(p.contract, 3, p.sellShFlag);
-                    posiMap.put(pk, p.sellQty);
-                }
-            }
-            //循环组合总表
-            for (Combination com : combinationSet) {
-                contract1 = com.leg1Contract;
-                contract2 = com.leg2Contract;
-                leg1BSFlag = com.leg1BSFlag;
-                leg2BSFlag = com.leg2BSFlag;
-                leg1SHFlag = com.combinationShFlag / 10;
-                leg2SHFlag = com.combinationShFlag % 10;
-                PosiKey pk1 = new PosiKey(contract1, leg1BSFlag, leg1SHFlag);
-                PosiKey pk2 = new PosiKey(contract2, leg2BSFlag, leg2BSFlag);
-                if (posiMap.containsKey(pk1) && posiMap.containsKey(pk2)) {
-                    long minQty = posiMap.get(pk1) >= posiMap.get(pk2) ? posiMap.get(pk2) : posiMap.get(pk1);
-                    comInfo = String.format("%s,%s,%s,%s,%s,%s,%d,%f,%f\n", contract1, leg1BSFlag, leg1SHFlag,
-                        contract2, leg2BSFlag, leg2SHFlag, minQty, com.margin, minQty * com.margin);
-                    // comInfo = contract1 + "-" + "bs:" + leg1BSFlag + "-" + "sh:" + leg1SHFlag + ","
-                    //     + contract2 + "-" + "bs:" + leg2BSFlag + "-" + "sh:" + leg2SHFlag + "-" + "comQty:" + minQty;
-                    marginMap.put(comInfo, minQty * com.margin);
-                    if (posiMap.get(pk1) == minQty && posiMap.get(pk2) == minQty) {
-                        posiMap.remove(pk1);
-                        posiMap.remove(pk2);
-                    } else if (posiMap.get(pk1) == minQty && posiMap.get(pk2) > minQty) {
-                        posiMap.remove(pk1);
-                        posiMap.computeIfPresent(pk2, (key, value) -> value - minQty);
-                    } else if (posiMap.get(pk1) > minQty && posiMap.get(pk2) == minQty) {
-                        posiMap.remove(pk2);
-                        posiMap.computeIfPresent(pk1, (key, value) -> value - minQty);
-                    } else {
-                        posiMap.computeIfPresent(pk1, (key, value) -> value - minQty);
-                        posiMap.computeIfPresent(pk2, (key, value) -> value - minQty);
-                    }
-                }
-            }
-
-            //打印结果
-            for (Map.Entry<String, Double> entry : marginMap.entrySet()) {
-                sumMargin += entry.getValue().doubleValue();
-                if (debug) {
-                    System.out.println(entry.getKey());
-                }
-            }
-            if (debug) {
-                System.out.println("sumMargin:" + sumMargin);
-            }
         } catch (Exception e) {
             System.out.println(e);
+        }
+
+        if (debug) {
+            //打印组合总表信息
+            for (Combination item : combinationSet) {
+                System.out.println(item.toString());
+            }
+            System.out.println("combination size: " + combinationSet.size());
+        }
+
+        //通过持仓信息构建对应的map结构，key为posi
+        String contract1;
+        String contract2;
+        int leg1BSFlag;
+        int leg2BSFlag;
+        int leg1SHFlag;
+        int leg2SHFlag;
+        String comInfo;
+
+        //存放最终根据组合总表和持仓结构生成的保证金结果
+        Map<String, Double> marginMap = new HashMap<>();
+        //根据持仓结构构建map，key=(contract,bsflag,shflag),value=qty
+        Map<PosiKey, Long> posiMap = new HashMap<>();
+        for (Posi p : posi) {
+            if (p.buyQty > 0) {
+                PosiKey pk = new PosiKey(p.contract, 1, p.buyShFlag);
+                posiMap.put(pk, p.buyQty);
+            }
+            if (p.sellQty > 0) {
+                PosiKey pk = new PosiKey(p.contract, 3, p.sellShFlag);
+                posiMap.put(pk, p.sellQty);
+            }
+        }
+        //循环组合总表
+        for (Combination com : combinationSet) {
+            contract1 = com.leg1Contract;
+            contract2 = com.leg2Contract;
+            leg1BSFlag = com.leg1BSFlag;
+            leg2BSFlag = com.leg2BSFlag;
+            leg1SHFlag = com.combinationShFlag / 10;
+            leg2SHFlag = com.combinationShFlag % 10;
+            PosiKey pk1 = new PosiKey(contract1, leg1BSFlag, leg1SHFlag);
+            PosiKey pk2 = new PosiKey(contract2, leg2BSFlag, leg2SHFlag);
+            if (posiMap.containsKey(pk1) && posiMap.containsKey(pk2)) {
+                long minQty = posiMap.get(pk1) >= posiMap.get(pk2) ? posiMap.get(pk2) : posiMap.get(pk1);
+                comInfo = String.format("%s,%d,%d,%s,%d,%d,%d,%f,%f\n", contract1, leg1BSFlag, leg1SHFlag,
+                    contract2, leg2BSFlag, leg2SHFlag, minQty, com.margin, minQty * com.margin);
+                sumMargin += minQty * com.margin;
+                if (debug) {
+                    System.out.print(comInfo);
+                }
+                marginMap.put(comInfo, minQty * com.margin);
+                if (posiMap.get(pk1) == minQty && posiMap.get(pk2) == minQty) {
+                    posiMap.remove(pk1);
+                    posiMap.remove(pk2);
+                } else if (posiMap.get(pk1) == minQty && posiMap.get(pk2) > minQty) {
+                    posiMap.remove(pk1);
+                    posiMap.computeIfPresent(pk2, (key, value) -> value - minQty);
+                } else if (posiMap.get(pk1) > minQty && posiMap.get(pk2) == minQty) {
+                    posiMap.remove(pk2);
+                    posiMap.computeIfPresent(pk1, (key, value) -> value - minQty);
+                } else {
+                    posiMap.computeIfPresent(pk1, (key, value) -> value - minQty);
+                    posiMap.computeIfPresent(pk2, (key, value) -> value - minQty);
+                }
+            }
+        }
+
+        if (debug) {
+            System.out.println("sumMargin:" + sumMargin);
         }
         return sumMargin;
     }
 
     public static void main(String[] args) {
         StrategyMargin margin = new StrategyMargin();
-        margin.computeMargin(null, null, null, null, null, null, null);
+
+        //构建品种合约参数
+        List<VarCon> varConPara = new ArrayList<>();
+        VarCon vc1 = new VarCon("a", "a2501", 1000);
+        VarCon vc2 = new VarCon("a", "a2502", 1100);
+        VarCon vc3 = new VarCon("a", "a2503", 1200);
+        VarCon vc4 = new VarCon("b", "b2501", 2000);
+        VarCon vc5 = new VarCon("b", "b2502", 2100);
+        VarCon vc6 = new VarCon("b", "b2503", 2200);
+        VarCon vc7 = new VarCon("c", "c2501", 3000);
+        VarCon vc8 = new VarCon("c", "c2502", 3100);
+        VarCon vc9 = new VarCon("c", "c2503", 3200);
+        varConPara.addAll(List.of(vc1, vc2, vc3, vc4, vc5, vc6, vc7, vc8, vc9));
+
+        List<Lock> lockPara = new ArrayList<>();
+        Lock l1 = new Lock("a", 1, 0);
+        Lock l2 = new Lock("b", 1, 0);
+        Lock l3 = new Lock("c", 1, 0);
+        lockPara.addAll(List.of(l1, l2, l3));
+
+        List<CrossPeriod> crossPeriodPara = new ArrayList<>();
+        CrossPeriod cp1 = new CrossPeriod("a", 1, 0);
+        CrossPeriod cp2 = new CrossPeriod("b", 1, 0);
+        CrossPeriod cp3 = new CrossPeriod("c", 1, 0);
+        crossPeriodPara.addAll(List.of(cp1, cp2, cp3));
+
+        List<CrossVariety> crossVarietyPara = new ArrayList<>();
+        CrossVariety cv1 = new CrossVariety("a", "b", 1, 0, 1);
+        CrossVariety cv2 = new CrossVariety("a", "c", 1, 0, 2);
+        CrossVariety cv3 = new CrossVariety("b", "c", 1, 0, 3);
+        crossVarietyPara.addAll(List.of(cv1, cv2, cv3));
+
+        List<CombinationPriority> combinationPriorityPara = new ArrayList<>();
+        CombinationPriority com1 = new CombinationPriority("lock", 1);
+        CombinationPriority com2 = new CombinationPriority("crossPeriod", 2);
+        CombinationPriority com3 = new CombinationPriority("crossVariety", 3);
+        combinationPriorityPara.addAll(List.of(com1, com2, com3));
+
+        List<SpecHedgePriority> specHedgePriority = new ArrayList<>();
+        SpecHedgePriority sh1 = new SpecHedgePriority(1, 11);
+        SpecHedgePriority sh2 = new SpecHedgePriority(2, 33);
+        SpecHedgePriority sh3 = new SpecHedgePriority(3, 13);
+        SpecHedgePriority sh4 = new SpecHedgePriority(4, 31);
+        specHedgePriority.addAll(List.of(sh1, sh2, sh3, sh4));
+
+
+        List<Posi> posi = new ArrayList<>();
+        Posi p1 = new Posi("a2501", 1, 1, 100, 210);
+        Posi p2 = new Posi("a2501", 3, 3, 270, 110);
+        Posi p3 = new Posi("a2502", 1, 1, 50, 100);
+        Posi p4 = new Posi("a2502", 3, 3, 60, 100);
+        Posi p5 = new Posi("b2501", 1, 1, 90, 50);
+        posi.addAll(List.of(p1, p2, p3, p4, p5));
+
+        margin.computeMargin(varConPara, lockPara, crossPeriodPara, crossVarietyPara, combinationPriorityPara, specHedgePriority, posi);
     }
 
 }
