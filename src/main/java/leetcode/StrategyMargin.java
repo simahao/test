@@ -158,7 +158,7 @@ public class StrategyMargin {
          * @param shFlag
          * @param priority
          */
-        public SpecHedgePriority(int priority, int shFlag) {
+        public SpecHedgePriority(int shFlag, int priority) {
             this.shFlag = shFlag;
             this.priority = priority;
         }
@@ -702,18 +702,21 @@ public class StrategyMargin {
         Lock l2 = new Lock("b", 1, 0);
         Lock l3 = new Lock("c", 1, 0);
         lockPara.addAll(List.of(l1, l2, l3));
+        // lockPara.addAll(List.of(l1, l2));
 
         List<CrossPeriod> crossPeriodPara = new ArrayList<>();
         CrossPeriod cp1 = new CrossPeriod("a", 1, 0);
         CrossPeriod cp2 = new CrossPeriod("b", 1, 0);
         CrossPeriod cp3 = new CrossPeriod("c", 1, 0);
         crossPeriodPara.addAll(List.of(cp1, cp2, cp3));
+        // crossPeriodPara.addAll(List.of(cp1, cp2));
 
         List<CrossVariety> crossVarietyPara = new ArrayList<>();
         CrossVariety cv1 = new CrossVariety("a", "b", 1, 0, 1);
         CrossVariety cv2 = new CrossVariety("a", "c", 1, 0, 2);
         CrossVariety cv3 = new CrossVariety("b", "c", 1, 0, 3);
         crossVarietyPara.addAll(List.of(cv1, cv2, cv3));
+        // crossVarietyPara.addAll(List.of(cv1, cv2));
 
         List<CombinationPriority> combinationPriorityPara = new ArrayList<>();
         CombinationPriority com1 = new CombinationPriority("lock", 1);
@@ -722,20 +725,27 @@ public class StrategyMargin {
         combinationPriorityPara.addAll(List.of(com1, com2, com3));
 
         List<SpecHedgePriority> specHedgePriority = new ArrayList<>();
-        SpecHedgePriority sh1 = new SpecHedgePriority(1, 11);
-        SpecHedgePriority sh2 = new SpecHedgePriority(2, 33);
-        SpecHedgePriority sh3 = new SpecHedgePriority(3, 13);
-        SpecHedgePriority sh4 = new SpecHedgePriority(4, 31);
+        SpecHedgePriority sh1 = new SpecHedgePriority(11, 1);
+        SpecHedgePriority sh2 = new SpecHedgePriority(33, 2);
+        SpecHedgePriority sh3 = new SpecHedgePriority(13, 3);
+        SpecHedgePriority sh4 = new SpecHedgePriority(31, 4);
         specHedgePriority.addAll(List.of(sh1, sh2, sh3, sh4));
 
 
         List<Posi> posi = new ArrayList<>();
         Posi p1 = new Posi("a2501", 1, 1, 100, 210);
-        Posi p2 = new Posi("a2501", 3, 3, 270, 110);
-        Posi p3 = new Posi("a2502", 1, 1, 50, 100);
-        Posi p4 = new Posi("a2502", 3, 3, 60, 100);
-        Posi p5 = new Posi("b2501", 1, 1, 90, 50);
-        posi.addAll(List.of(p1, p2, p3, p4, p5));
+        Posi p2 = new Posi("a2502", 1, 3, 50, 30);
+        Posi p3 = new Posi("b2501", 1, 0, 75, 0);
+        Posi p4 = new Posi("c2501", 3, 0, 15, 0);
+        posi.addAll(List.of(p1, p2, p3, p4));
+
+        // Posi p1 = new Posi("a2501", 1, 1, 100, 210);
+        // Posi p2 = new Posi("a2501", 3, 3, 270, 110);
+        // Posi p3 = new Posi("a2502", 1, 1, 50, 100);
+        // Posi p4 = new Posi("a2502", 3, 3, 60, 100);
+        // Posi p5 = new Posi("b2501", 1, 1, 100, 50);
+        // Posi p6 = new Posi("c2501", 3, 1, 10, 20);
+        // posi.addAll(List.of(p1, p2, p3, p4, p5, p6));
 
         margin.computeMargin(varConPara, lockPara, crossPeriodPara, crossVarietyPara, combinationPriorityPara, specHedgePriority, posi);
     }
