@@ -607,6 +607,7 @@ public class StrategyMargin {
             }
         } catch (Exception e) {
             System.out.println(e);
+            return -8;
         }
 
         if (debug) {
