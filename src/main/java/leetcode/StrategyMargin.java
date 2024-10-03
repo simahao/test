@@ -47,19 +47,19 @@ public class StrategyMargin {
         private String variety;
 
         //高腿保证金比例
-        private double hightMargin;
+        private double highMargin;
 
         //低腿保证金比例
         private double lowMargin;
 
         /**
          * @param variety
-         * @param hightMargin
+         * @param highMargin
          * @param lowMargin
          */
-        public Lock(String variety, double hightMargin, double lowMargin) {
+        public Lock(String variety, double highMargin, double lowMargin) {
             this.variety = variety;
-            this.hightMargin = hightMargin;
+            this.highMargin = highMargin;
             this.lowMargin = lowMargin;
         }
     }
@@ -70,19 +70,19 @@ public class StrategyMargin {
         private String variety;
 
         //高腿保证金
-        private double hightMargin;
+        private double highMargin;
 
         //低腿保证金
         private double lowMargin;
 
         /**
          * @param variety
-         * @param hightMargin
+         * @param highMargin
          * @param lowMargin
          */
-        public CrossPeriod(String variety, double hightMargin, double lowMargin) {
+        public CrossPeriod(String variety, double highMargin, double lowMargin) {
             this.variety = variety;
-            this.hightMargin = hightMargin;
+            this.highMargin = highMargin;
             this.lowMargin = lowMargin;
         }
     }
@@ -96,7 +96,7 @@ public class StrategyMargin {
         private String variety2;
 
         //高腿保证金比例
-        private double hightMargin;
+        private double highMargin;
 
         //低腿保证金比例
         private double lowMargin;
@@ -107,14 +107,14 @@ public class StrategyMargin {
         /**
          * @param variety1
          * @param variety2
-         * @param hightMargin
+         * @param highMargin
          * @param lowMargin
          * @param priority
          */
-        public CrossVariety(String variety1, String variety2, double hightMargin, double lowMargin, int priority) {
+        public CrossVariety(String variety1, String variety2, double highMargin, double lowMargin, int priority) {
             this.variety1 = variety1;
             this.variety2 = variety2;
-            this.hightMargin = hightMargin;
+            this.highMargin = highMargin;
             this.lowMargin = lowMargin;
             this.priority = priority;
         }
@@ -283,13 +283,13 @@ public class StrategyMargin {
         }
     }
 
-    public static class HightLowMargin {
-        private double hightMargin;
+    public static class HighLowMargin {
+        private double highMargin;
 
         private double lowMargin;
 
-        public HightLowMargin(double hightMargin, double lowMargin) {
-            this.hightMargin = hightMargin;
+        public HighLowMargin(double highMargin, double lowMargin) {
+            this.highMargin = highMargin;
             this.lowMargin = lowMargin;
         }
     }
@@ -356,13 +356,13 @@ public class StrategyMargin {
     public Map<String, ConInfo> conInfoMap = new HashMap<>();
 
     //根据合约找到对锁保证金
-    public Map<String, HightLowMargin> lockMarginMap = new HashMap<>();
+    public Map<String, HighLowMargin> lockMarginMap = new HashMap<>();
 
     //根据合约找到跨期的高低腿保证金
-    public Map<String, HightLowMargin> crossPeriodMarginMap = new HashMap<>();
+    public Map<String, HighLowMargin> crossPeriodMarginMap = new HashMap<>();
 
     //根据合约找到跨品种的高低腿保证金
-    public Map<String, HightLowMargin> crossVarietyMarginMap = new HashMap<>();
+    public Map<String, HighLowMargin> crossVarietyMarginMap = new HashMap<>();
 
     //品种下有哪些合约
     public Map<String, List<String>> contractListByVarMap = new HashMap<>();
@@ -384,25 +384,25 @@ public class StrategyMargin {
             String variety = conInfoMap.get(contract1).variety;
             double clearPrice = conInfoMap.get(contract1).clearPrice;
             //对锁因为是同一个合约的不同方向，可以简单按照这个逻辑处理
-            return lockMarginMap.get(variety).hightMargin * clearPrice + lockMarginMap.get(variety).lowMargin * clearPrice;
+            return lockMarginMap.get(variety).highMargin * clearPrice + lockMarginMap.get(variety).lowMargin * clearPrice;
         } else if ("crossPeriod".equals(type)) {
             String variety = conInfoMap.get(contract1).variety;
             double price1 = conInfoMap.get(contract1).clearPrice;
             double price2 = conInfoMap.get(contract2).clearPrice;
-            double priceHight = price1 >= price2 ? price1 : price2;
+            double priceHigh = price1 >= price2 ? price1 : price2;
             double priceLow = price1 >= price2 ? price2 : price1;
-            return crossPeriodMarginMap.get(variety).hightMargin * priceHight + crossPeriodMarginMap.get(variety).lowMargin * priceLow;
+            return crossPeriodMarginMap.get(variety).highMargin * priceHigh + crossPeriodMarginMap.get(variety).lowMargin * priceLow;
         } else if ("crossVariety".equals(type)) {
             String variety1 = conInfoMap.get(contract1).variety;
             String variety2 = conInfoMap.get(contract2).variety;
             double price1 = conInfoMap.get(contract1).clearPrice;
             double price2 = conInfoMap.get(contract2).clearPrice;
             if (price1 >= price2) {
-                return crossVarietyMarginMap.get(variety1 + variety2).hightMargin * price1 +
+                return crossVarietyMarginMap.get(variety1 + variety2).highMargin * price1 +
                     crossVarietyMarginMap.get(variety1 + variety2).lowMargin * price2;
             } else {
                 return crossVarietyMarginMap.get(variety1 + variety2).lowMargin * price1 +
-                    crossVarietyMarginMap.get(variety1 + variety2).hightMargin * price2;
+                    crossVarietyMarginMap.get(variety1 + variety2).highMargin * price2;
             }
         } else {
             System.out.println("unexpected combination name:" + type);
@@ -577,15 +577,15 @@ public class StrategyMargin {
 
         //根据lockPara，实现根据品种找到对应的对锁高低腿保证金
         for (Lock lockItem : lockPara) {
-            lockMarginMap.put(lockItem.variety, new HightLowMargin(lockItem.hightMargin, lockItem.lowMargin));
+            lockMarginMap.put(lockItem.variety, new HighLowMargin(lockItem.highMargin, lockItem.lowMargin));
         }
         //根据crossPeriodPara，实现根据品种找到对应的跨期高低腿保证金
         for (CrossPeriod crossPeriodItem : crossPeriodPara) {
-            crossPeriodMarginMap.put(crossPeriodItem.variety, new HightLowMargin(crossPeriodItem.hightMargin, crossPeriodItem.lowMargin));
+            crossPeriodMarginMap.put(crossPeriodItem.variety, new HighLowMargin(crossPeriodItem.highMargin, crossPeriodItem.lowMargin));
         }
         //根据crossVarietyPara，实现根据品种找到对应的跨品种高低腿保证金
         for (CrossVariety crossVarietyItem : crossVarietyPara) {
-            crossVarietyMarginMap.put(crossVarietyItem.variety1 + crossVarietyItem.variety2, new HightLowMargin(crossVarietyItem.hightMargin, crossVarietyItem.lowMargin));
+            crossVarietyMarginMap.put(crossVarietyItem.variety1 + crossVarietyItem.variety2, new HighLowMargin(crossVarietyItem.highMargin, crossVarietyItem.lowMargin));
         }
 
         try {
