@@ -195,8 +195,6 @@ public class StrategyMargin {
         //组合后的保证金金额
         private double margin;
 
-        // private List<SpecHedgePriority> specHedgePriority;
-
         public Combination() {
         }
         /**
@@ -234,9 +232,6 @@ public class StrategyMargin {
 
     //交易编码对应的持仓结构
     public static class Posi {
-        //交易编码
-        // private String tradeNo;
-
         //持仓合约
         private String contract;
 
@@ -263,7 +258,6 @@ public class StrategyMargin {
          * @param sellQty
          */
         public Posi(String contract, int buyShFlag, int sellShFlag, long buyQty, long sellQty) {
-            // this.tradeNo = tradeNo;
             this.contract = contract;
             this.buyShFlag = buyShFlag;
             this.sellShFlag = sellShFlag;
@@ -347,28 +341,28 @@ public class StrategyMargin {
     }
 
     //组合总表的结果
-    public TreeSet<Combination> combinationSet = new TreeSet<>();
+    private TreeSet<Combination> combinationSet = new TreeSet<>();
 
     //组合总表中的优先级
-    public int comPriority = 0;
+    private int comPriority = 0;
 
     //合约对应的品种和结算价
-    public Map<String, ConInfo> conInfoMap = new HashMap<>();
+    private Map<String, ConInfo> conInfoMap = new HashMap<>();
 
     //根据合约找到对锁保证金
-    public Map<String, HighLowMargin> lockMarginMap = new HashMap<>();
+    private Map<String, HighLowMargin> lockMarginMap = new HashMap<>();
 
     //根据合约找到跨期的高低腿保证金
-    public Map<String, HighLowMargin> crossPeriodMarginMap = new HashMap<>();
+    private Map<String, HighLowMargin> crossPeriodMarginMap = new HashMap<>();
 
     //根据合约找到跨品种的高低腿保证金
-    public Map<String, HighLowMargin> crossVarietyMarginMap = new HashMap<>();
+    private Map<String, HighLowMargin> crossVarietyMarginMap = new HashMap<>();
 
     //品种下有哪些合约
-    public Map<String, List<String>> contractListByVarMap = new HashMap<>();
+    private Map<String, List<String>> contractListByVarMap = new HashMap<>();
 
     //所有品种信息，针对品种合约数据已经排序，所以这里面的品种信息在加入的时候也是有序的
-    public Set<String> varietySet = new HashSet<>();
+    private Set<String> varietySet = new HashSet<>();
 
     /**
      *
