@@ -1,6 +1,5 @@
 package leetcode;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -364,6 +363,13 @@ public class StrategyMargin {
     //所有品种信息，针对品种合约数据已经排序，所以这里面的品种信息在加入的时候也是有序的
     private Set<String> varietySet = new HashSet<>();
 
+    private List<VarCon> varConPara;
+
+    private List<CrossVariety> crossVarietyPara;
+
+    private List<SpecHedgePriority> specHedgePriorityPara;
+
+
     /**
      *
      * @param type lock,crossPeriod,crossVariety
@@ -405,14 +411,10 @@ public class StrategyMargin {
     }
 
     /**
-     *
-    * @param varConPara 品种合约参数
-    * @param lockPara 对锁参数，包含品种，高低腿保证金
-    * @param specHedgePriority 投机套保的优先级参数
     * 对锁组合处理
     * 根据持仓结构，找到符合对锁组合的持仓
     */
-    public void lock(List<VarCon> varConPara, List<Lock> lockPara, List<SpecHedgePriority> specHedgePriority) {
+    public void lock() {
         //一个合约根据投机套保，买卖生成4条组合信息，由于是同一个合约，买卖颠倒的组合还是同一个组合，因此另外4个不生成
         //a1（买投机）&a1（卖投机）
         //a1（买套保）&a1（卖套保）
@@ -420,7 +422,7 @@ public class StrategyMargin {
         //a1（买投机）&a1（卖套保）
         for (VarCon varConItem: varConPara) {
             //每个合约下，根据投机套保优先级进行对锁组合总表数据的生成
-            for (SpecHedgePriority shItem : specHedgePriority) {
+            for (SpecHedgePriority shItem : specHedgePriorityPara) {
                 Combination com = new Combination();
                 com.leg1Contract = varConItem.contract;
                 com.leg2Contract = varConItem.contract;
@@ -438,11 +440,8 @@ public class StrategyMargin {
 
     /**
      *
-     * @param varConPara 品种合约参数
-     * @param crossPeriodPara 跨期参数
-     * @param specHedgePriority 投机套保的优先级参数
      */
-    public void crossPeriod(List<VarCon> varConPara, List<CrossPeriod> crossPeriodPara, List<SpecHedgePriority> specHedgePriority) {
+    public void crossPeriod() {
         for (String variety : varietySet) {
             List<String> contractList = contractListByVarMap.get(variety);
             if (contractList == null) {
@@ -450,7 +449,7 @@ public class StrategyMargin {
             }
             for (int i = 0; i < contractList.size(); i++) {
                 for (int j = i + 1; j < contractList.size(); j++) {
-                    for (SpecHedgePriority shItem : specHedgePriority) {
+                    for (SpecHedgePriority shItem : specHedgePriorityPara) {
                         for (int k = 0; k < 2; k++) {
                             Combination com = new Combination();
                             com.leg1Contract = contractList.get(i);
@@ -479,11 +478,8 @@ public class StrategyMargin {
 
     /**
      *
-     * @param varConPara 品种合约参数
-     * @param crossVarietyPara 跨品种参数
-     * @param specHedgePriority 投机套保的优先级参数
      */
-    public void crossVariety(List<VarCon> varConPara, List<CrossVariety> crossVarietyPara, List<SpecHedgePriority> specHedgePriority) {
+    public void crossVariety() {
         for (CrossVariety crossVarietyItem: crossVarietyPara) {
             String variety1 = crossVarietyItem.variety1;
             String variety2 = crossVarietyItem.variety2;
@@ -494,7 +490,7 @@ public class StrategyMargin {
             }
             for (String contract1: contractList1) {
                 for (String contract2: contractList2) {
-                    for (SpecHedgePriority shItem : specHedgePriority) {
+                    for (SpecHedgePriority shItem : specHedgePriorityPara) {
                         for (int k = 0; k < 2; k++) {
                             Combination com = new Combination();
                             com.leg1Contract = contract1;
@@ -521,7 +517,7 @@ public class StrategyMargin {
     }
 
     public double computeMargin(List<VarCon> varConPara, List<Lock> lockPara, List<CrossPeriod> crossPeriodPara, List<CrossVariety> crossVarietyPara,
-        List<CombinationPriority> combinationPriorityPara, List<SpecHedgePriority> specHedgePriority, List<Posi> posi) {
+        List<CombinationPriority> combinationPriorityPara, List<SpecHedgePriority> specHedgePriorityPara, List<Posi> posi) {
         if (varConPara == null) {
             return -1;
         }
@@ -537,25 +533,33 @@ public class StrategyMargin {
         if (combinationPriorityPara == null) {
             return -5;
         }
-        if (specHedgePriority == null) {
+        if (specHedgePriorityPara == null) {
             return -6;
         }
+        if (posi == null) {
+            return -7;
+        }
+        //下面三个变量需要传递到三个函数中，因为用了反射，所以希望没有参数，将三个变量通过成员变量传递过去
+        this.varConPara = varConPara;
+        this.crossVarietyPara = crossVarietyPara;
+        this.specHedgePriorityPara = specHedgePriorityPara;
+
         boolean debug = true;
 
         double sumMargin = 0;
         //根据优先级设置，对各个组合设定进行排序
         Collections.sort(combinationPriorityPara, Comparator.comparingInt(CombinationPriority::getPriority));
         //根据合约进行排序
-        Collections.sort(varConPara);
+        Collections.sort(this.varConPara);
         //根据投机套保优先级，进行排序
-        Collections.sort(specHedgePriority, Comparator.comparingInt(SpecHedgePriority::getPriority));
+        Collections.sort(this.specHedgePriorityPara, Comparator.comparingInt(SpecHedgePriority::getPriority));
         String variety = "";
         List<String> contractList = new ArrayList<>();
         //根据品种合约信息，生成额外的3个结构
         //1. 一个map实现根据品种找到该品种下所有的合约
         //2. 一个map实现根据合约找到<品种,结算价>
         //3. 一个set负责存放所有的品种
-        for (VarCon varConItem : varConPara) {
+        for (VarCon varConItem : this.varConPara) {
             conInfoMap.put(varConItem.contract, new ConInfo(varConItem.variety, varConItem.clearPrice));
             if (varConItem.variety.compareTo(variety) != 0) {
                 if (variety.length() != 0) {
@@ -578,7 +582,7 @@ public class StrategyMargin {
             crossPeriodMarginMap.put(crossPeriodItem.variety, new HighLowMargin(crossPeriodItem.highMargin, crossPeriodItem.lowMargin));
         }
         //根据crossVarietyPara，实现根据品种找到对应的跨品种高低腿保证金
-        for (CrossVariety crossVarietyItem : crossVarietyPara) {
+        for (CrossVariety crossVarietyItem : this.crossVarietyPara) {
             crossVarietyMarginMap.put(crossVarietyItem.variety1 + crossVarietyItem.variety2, new HighLowMargin(crossVarietyItem.highMargin, crossVarietyItem.lowMargin));
         }
 
@@ -586,18 +590,7 @@ public class StrategyMargin {
             Class<?> cls = StrategyMargin.class;
             //根据组合优先级设置，生成组合总表，默认应该是先对锁，然后跨期，最后跨品种
             for (CombinationPriority comPri: combinationPriorityPara) {
-                String funName = comPri.combinationName;
-                Method method = cls.getMethod(funName, List.class, List.class, List.class);
-                if ("lock".equals(funName)) {
-                    method.invoke(this, varConPara, lockPara, specHedgePriority);
-                } else if ("crossPeriod".equals(funName)) {
-                    method.invoke(this, varConPara, crossPeriodPara, specHedgePriority);
-                } else if ("crossVariety".equals(funName)) {
-                    method.invoke(this, varConPara, crossVarietyPara, specHedgePriority);
-                } else {
-                    System.out.println("unexpected combination name in combinationPriorityPara:" + funName);
-                    return -7;
-                }
+                cls.getMethod(comPri.combinationName).invoke(this);
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -697,21 +690,18 @@ public class StrategyMargin {
         Lock l2 = new Lock("b", 1, 0);
         Lock l3 = new Lock("c", 1, 0);
         lockPara.addAll(List.of(l1, l2, l3));
-        // lockPara.addAll(List.of(l1, l2));
 
         List<CrossPeriod> crossPeriodPara = new ArrayList<>();
         CrossPeriod cp1 = new CrossPeriod("a", 1, 0);
         CrossPeriod cp2 = new CrossPeriod("b", 1, 0);
         CrossPeriod cp3 = new CrossPeriod("c", 1, 0);
         crossPeriodPara.addAll(List.of(cp1, cp2, cp3));
-        // crossPeriodPara.addAll(List.of(cp1, cp2));
 
         List<CrossVariety> crossVarietyPara = new ArrayList<>();
         CrossVariety cv1 = new CrossVariety("a", "b", 1, 0, 1);
         CrossVariety cv2 = new CrossVariety("a", "c", 1, 0, 2);
         CrossVariety cv3 = new CrossVariety("b", "c", 1, 0, 3);
         crossVarietyPara.addAll(List.of(cv1, cv2, cv3));
-        // crossVarietyPara.addAll(List.of(cv1, cv2));
 
         List<CombinationPriority> combinationPriorityPara = new ArrayList<>();
         CombinationPriority com1 = new CombinationPriority("lock", 1);
@@ -728,19 +718,19 @@ public class StrategyMargin {
 
 
         List<Posi> posi = new ArrayList<>();
-        Posi p1 = new Posi("a2501", 1, 1, 100, 210);
-        Posi p2 = new Posi("a2502", 1, 3, 50, 30);
-        Posi p3 = new Posi("b2501", 1, 0, 75, 0);
-        Posi p4 = new Posi("c2501", 3, 0, 15, 0);
-        posi.addAll(List.of(p1, p2, p3, p4));
-
         // Posi p1 = new Posi("a2501", 1, 1, 100, 210);
-        // Posi p2 = new Posi("a2501", 3, 3, 270, 110);
-        // Posi p3 = new Posi("a2502", 1, 1, 50, 100);
-        // Posi p4 = new Posi("a2502", 3, 3, 60, 100);
-        // Posi p5 = new Posi("b2501", 1, 1, 100, 50);
-        // Posi p6 = new Posi("c2501", 3, 1, 10, 20);
-        // posi.addAll(List.of(p1, p2, p3, p4, p5, p6));
+        // Posi p2 = new Posi("a2502", 1, 3, 50, 30);
+        // Posi p3 = new Posi("b2501", 1, 0, 75, 0);
+        // Posi p4 = new Posi("c2501", 3, 0, 15, 0);
+        // posi.addAll(List.of(p1, p2, p3, p4));
+
+        Posi p1 = new Posi("a2501", 1, 1, 100, 210);
+        Posi p2 = new Posi("a2501", 3, 3, 270, 110);
+        Posi p3 = new Posi("a2502", 1, 1, 50, 100);
+        Posi p4 = new Posi("a2502", 3, 3, 60, 100);
+        Posi p5 = new Posi("b2501", 1, 1, 100, 50);
+        Posi p6 = new Posi("c2501", 3, 1, 10, 20);
+        posi.addAll(List.of(p1, p2, p3, p4, p5, p6));
 
         margin.computeMargin(varConPara, lockPara, crossPeriodPara, crossVarietyPara, combinationPriorityPara, specHedgePriority, posi);
     }
